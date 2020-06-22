@@ -26,6 +26,7 @@ public class UserController {
 
 	@RequestMapping(value = "/{userName}", method = RequestMethod.GET)
 	public String getUser(@PathVariable("userName") String userName, Model model) {
+		logger.info("getUser(@PathVariable(\"userName\") String userName, Model model)");
 		List<User> userList = userResponsitory.findByName(userName);
 		if (userList != null) {
 			model.addAttribute("users", userList);
@@ -35,7 +36,7 @@ public class UserController {
 
 	@RequestMapping(value = { "/", "/{userName}" }, method = RequestMethod.POST)
 	public String addUser(User user) {
-		logger.info("addUser-" + user.getName());
+		logger.info("addUser(User user)-" + user.getName() != null ? user.getName() : "");
 		user.setName(user.getName());
 		userResponsitory.save(user);
 		return "redirect:/user/";
@@ -53,5 +54,4 @@ public class UserController {
 		}
 		return "userList";
 	}
-
 }

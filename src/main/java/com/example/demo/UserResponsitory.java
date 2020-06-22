@@ -10,4 +10,5 @@ public interface UserResponsitory extends JpaRepository<User, Long> {
 
 	List<User> findAll();
 
+
 }
