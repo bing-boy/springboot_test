@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.info("configure(HttpSecurity http)");
-		http.csrf().disable();
+		http.csrf().disable(); //csrf跨站防护（springSecurity在2.0之后就会默认自动开启）。一旦开启了CSRF，所有经过springsecurity的http请求以及资源都被会CsrfFilter拦截，仅仅GET|HEAD|TRACE|OPTIONS这4类方法会被放行，也就是说post，delete等方法依旧是被拦截掉的，限制了除了get以外的大多数方法，报出403错误。CsrfFilter中有一个私有类DefaultRequiresCsrfMatcher允许的方法不包括post
 		http.authorizeRequests().antMatchers("/").access("hasRole('READER')") //要求登录者有READER角色
 				.antMatchers("/**").permitAll().and().formLogin().loginPage("/login") //设置登录表单的路径
 				.failureUrl("/login?error=true");
