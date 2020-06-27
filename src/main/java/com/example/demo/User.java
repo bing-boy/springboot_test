@@ -13,6 +13,7 @@ public class User {
 	private Long id;
 	private String name;
 	private String pass;
+	private int age;
 	private String description;
 
 	public Long getId() {
@@ -37,6 +38,14 @@ public class User {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	public String getDescription() {

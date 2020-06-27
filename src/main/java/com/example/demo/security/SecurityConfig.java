@@ -22,10 +22,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private Logger logger = org.slf4j.LoggerFactory.getLogger(SecurityConfig.class);
-	
+
 	@Autowired
 	private ReaderRepository readerRepository;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.info("configure(HttpSecurity http)");
@@ -34,12 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/**").permitAll().and().formLogin().loginPage("/login") //设置登录表单的路径
 				.failureUrl("/login?error=true");
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		logger.info("configure(AuthenticationManagerBuilder auth)");
 		auth.userDetailsService(new UserDetailsService() { //匿名内部类，定义自定义UserDetailsServices
-	
+
 			@Override
 			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 				logger.info("loadUserByUsername(String username)");
@@ -49,6 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				return readerRepository.findOne(readerExample).orElse(null);
 			}
 		});
-		
+
 	}
 }
