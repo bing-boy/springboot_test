@@ -37,7 +37,6 @@ public class UserController {
 	@RequestMapping(value = { "/", "/{userName}" }, method = RequestMethod.POST)
 	public String addUser(User user) {
 		logger.info("addUser(User user)-" + user.getName() != null ? user.getName() : "");
-		user.setName(user.getName());
 		userResponsitory.save(user);
 		return "redirect:/user/";
 	}
